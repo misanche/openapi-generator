@@ -71,6 +71,7 @@ public class SpringCodegen extends AbstractJavaCodegen
     public static final String SPRING_MVC_LIBRARY = "spring-mvc";
     public static final String SPRING_BOOT = "spring-boot";
     public static final String SPRING_CLOUD_LIBRARY = "spring-cloud";
+    public static final String SPRING_BOOT_RHOAR = "spring-boot-rhoar";
     public static final String IMPLICIT_HEADERS = "implicitHeaders";
     public static final String OPENAPI_DOCKET_CONFIG = "swaggerDocketConfig";
     public static final String API_FIRST = "apiFirst";
@@ -128,6 +129,7 @@ public class SpringCodegen extends AbstractJavaCodegen
         supportedLibraries.put(SPRING_BOOT, "Spring-boot Server application using the SpringFox integration.");
         supportedLibraries.put(SPRING_MVC_LIBRARY, "Spring-MVC Server application using the SpringFox integration.");
         supportedLibraries.put(SPRING_CLOUD_LIBRARY, "Spring-Cloud-Feign client with Spring-Boot auto-configured settings.");
+        supportedLibraries.put(SPRING_BOOT_RHOAR, "Spring-boot Server application using the SpringFox integration and RedHat RHOAR libraries with fabric8.");
         setLibrary(SPRING_BOOT);
 
         CliOption library = new CliOption(CodegenConstants.LIBRARY, "library template (sub-template) to use");
@@ -281,7 +283,7 @@ public class SpringCodegen extends AbstractJavaCodegen
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
 
         if (!this.interfaceOnly) {
-            if (library.equals(SPRING_BOOT)) {
+            if (library.equals(SPRING_BOOT) || library.equals(SPRING_BOOT_RHOAR)) {
                 supportingFiles.add(new SupportingFile("openapi2SpringBoot.mustache",
                         (sourceFolder + File.separator + basePackage).replace(".", java.io.File.separator), "OpenAPI2SpringBoot.java"));
                 supportingFiles.add(new SupportingFile("RFC3339DateFormat.mustache",
